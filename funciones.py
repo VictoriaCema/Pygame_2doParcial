@@ -87,10 +87,12 @@ def mostrar_reglas(ventana, medidas_ventana, beige_clarito, fuente):
     # Texto de las reglas
     reglas = [
         "REGLAS DEL JUEGO:",
-        "1. Mueve Somvicks con las flechas izquierda y derecha.",
+        "1. Mueve a Somvicks con las flechas <- y ->.",
         "2. Atrapa las píldoras para sumar puntos.",
-        "3. Evita los virus o perderás vidas: Comienzas con 3 vidas y pierdes 1 (una) cada 3 virus que tocas.",
-        "4. Consigue 20 píldoras para ganar.",
+        "3. Evita los virus o perderás vidas", 
+        "4. Comienzas con 3 vidas",
+        "5. Pierdes 1 vida cada 3 virus que tocas.",
+        "6. Consigue 20 píldoras para ganar.",
         "Presiona ESC para volver al menú principal."
     ]
 
