@@ -17,6 +17,7 @@ def detectar_colision_pildora(rect_personaje, rect_pildora, estado_jugador, medi
         x_pildora = random.randint(0, medidas_ventana[0] - rect_pildora.width)
         y_pildora = -rect_pildora.height
         return x_pildora, y_pildora, True
+        
     return rect_pildora.x, rect_pildora.y, False
 
 def detectar_colision_virus(rect_personaje, rect_virus, estado_jugador, medidas_ventana, sonido_virus):
@@ -108,6 +109,7 @@ def mostrar_reglas(ventana, medidas_ventana, beige_clarito, fuente):
     # Texto de las reglas
     reglas = [
         "REGLAS DEL JUEGO:",
+        "",
         "1. Mueve a Somvicks con las flechas <- y ->.",
         "2. Atrapa las píldoras rosas para sumar puntos.",
         "3. Consigue 20 píldoras rosas para ganar.", 
@@ -115,6 +117,7 @@ def mostrar_reglas(ventana, medidas_ventana, beige_clarito, fuente):
         "5. Pierdes 1 vida cada 3 virus verdes que tocas.",
         "6. Pierdes 1 vida por cada virus rojo que tocas.",
         "7. La pildora amarilla te devuelve 1 vida. ",
+        "",
         "Presiona ESC para volver al menú principal."
     ]
 
@@ -196,6 +199,7 @@ def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_v
     """Dibuja los elementos en la pantalla."""
     reloj.tick(60)
     ventana.blit(imagen_fondo, (0, 0))
+    
     if direccion == "derecha":
         ventana.blit(somvicks_D, (x_somvicks, y_somvicks))
     else:
@@ -212,10 +216,17 @@ def mostrar_pantalla_final(ventana, resultado):
     if resultado == "ganaste":
         sonido_ganar.play()
         ventana.fill((0, 0, 0))
-        ventana.blit(ganaste_img, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
+        ventana.blit(ganaste_img, ((medidas_ventana[0] - 700) // 2, (medidas_ventana[1] - 500) // 2))
     elif resultado == "perdiste":
         sonido_perder.play()
         ventana.fill((0, 0, 0))
-        ventana.blit(game_over_img, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
+        ventana.blit(game_over_img, ((medidas_ventana[0] - 700) // 2, (medidas_ventana[1] - 500) // 2))
     pygame.display.flip()
     pygame.time.wait(3000)
+
+def ranking(ventana, estado_jugador):
+    texto = f"Vidas: {estado_jugador['vidas']}  Pildoras: {estado_jugador['pildoras']}  Virus: {estado_jugador['virus']}"
+    fuente = pygame.font.SysFont("Arial Black", 36)
+    mensaje = fuente.render(texto, True, (120, 40, 140)) 
+    ventana.blit(mensaje, (0, 0))
+    pygame.display.flip()

@@ -69,10 +69,11 @@ while ejecutando == 1:
                 estado_jugador["vidas"] -= 1
                 estado_jugador["virus"] = 0
                 print(f"¡Perdiste una vida! Vidas restantes: {estado_jugador['vidas']}")
-                if estado_jugador["vidas"] <= 0:
-                    print("¡Game Over!")
-                    resultado = "perdiste"
-                    jugando = 2
+            
+            if estado_jugador["vidas"] <= 0:
+                print("¡Game Over!")
+                resultado = "perdiste"
+                jugando = 2
                     
             # Colision con pildora salvadora 
             x_pildora_salvadora, y_pildora_salvadora, ganado1 = detectar_colision_pildora_salvadora(rect_somvicks, rect_pildora_salvadora, estado_jugador, medidas_ventana, sonido_pildora)
@@ -80,6 +81,9 @@ while ejecutando == 1:
             # Dibujar pantalla                                 
             dibujar_elementos(ventana, x_somvicks, y_somvicks,x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora, reloj, direccion)
             
+            ranking(ventana, estado_jugador)
+            
+        
         # Pantalla final
         pygame.mixer.music.stop()
         mostrar_pantalla_final(ventana, resultado)
