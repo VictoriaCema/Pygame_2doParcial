@@ -31,6 +31,20 @@ def detectar_colision_virus(rect_personaje, rect_virus, estado_jugador, medidas_
         return x_virus, y_virus, True
     return rect_virus.x, rect_virus.y, False
 
+def detectar_colision_virus_mortal(rect_personaje, rect_virual_mortal, estado_jugador, medidas_ventana, sonido_virus):
+    """Maneja la colisión entre Somvicks y el virus."""
+    if rect_personaje.colliderect(rect_virual_mortal):
+        sonido_virus.play()
+        estado_jugador["virus"] -= 1
+        print(f"¡Virus mortal tocado, pierdes una vida, vidas restandtes {estado_jugador["vidas"]}! ")
+        # Reiniciar la posición del virus
+        x_virus_mortal = random.randint(0, medidas_ventana[0] - rect_virual_mortal.width)
+        y_virus_mortal = - rect_virual_mortal.height
+        return x_virus_mortal, y_virus_mortal, True
+    return rect_virual_mortal.x, rect_virual_mortal.y, False
+
+
+
 def mostrar_pantalla_final(ventana, resultado, medidas_ventana, img_ganaste, img_gameover, sonido_ganar, sonido_perder):
     """Muestra la pantalla final según el resultado del juego."""
     ventana.fill((0, 0, 0)) 
@@ -117,30 +131,30 @@ def inicializar_estado_juego():
     estado_jugador = {"pildoras": 0, "virus": 0, "vidas": 3}
     x_pildora, y_pildora = random.randint(0, medidas_ventana[0] - ancho_pildora), -alto_pildora
     x_virus, y_virus = random.randint(0, medidas_ventana[0] - ancho_virus), -alto_virus
-    x_somvicks, y_somvicks = (medidas_ventana[0] - ancho_somvicks) // 2, medidas_ventana[1] - alto_somvicks - 20
-    return estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks
+    x_somvicks, y_somvicks = (medidas_ventana[0] - ancho_somvicks) // 2, medidas_ventana[1] - alto_somvicks
+    #x_virus_mortal, y_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus), - alto_virus
+    x_virus_mortal, y_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus), - alto_virus
+    return estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks, x_virus_mortal, y_virus_mortal #x_virus_mortal, y_virus_mortal
 
 
-def mover_personaje(teclas, x_somvicks):
+def mover_personaje(teclas, x_somvicks, direccion):
     """Controla el movimiento del personaje según las teclas presionadas."""
     if teclas[pygame.K_LEFT] and x_somvicks > 0:
         x_somvicks -= velocidad_personaje
+        direccion = "izquierda"
     if teclas[pygame.K_RIGHT] and x_somvicks < medidas_ventana[0] - ancho_somvicks:
         x_somvicks += velocidad_personaje
-    return x_somvicks
+        direccion = "derecha"
+    return x_somvicks, direccion
 
 
-def actualizar_pildora(contador_pildora, x_pildora, y_pildora):
+def actualizar_pildora(x_pildora, y_pildora):
     """Actualiza la posición de la píldora."""
-    contador_pildora += 1
-    if contador_pildora >= caida_cada_n_vueltas:
-        y_pildora += 1
-        contador_pildora = 0
-
+    y_pildora += velocidad_pildora
     if y_pildora > medidas_ventana[1]:
         x_pildora = random.randint(0, medidas_ventana[0] - ancho_pildora)
         y_pildora = -alto_pildora
-    return contador_pildora, x_pildora, y_pildora
+    return x_pildora, y_pildora
 
 
 def actualizar_virus(x_virus, y_virus):
@@ -151,21 +165,32 @@ def actualizar_virus(x_virus, y_virus):
         y_virus = -alto_virus
     return x_virus, y_virus
 
+def actualizar_virus_mortal(x_virus_mortal, y_virus_mortal):
+    y_virus_mortal += velocidad_virus_mortal
+    if y_virus_mortal > medidas_ventana[1]:
+        x_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus)
+        y_virus_mortal = - alto_virus
+    return x_virus_mortal, y_virus_mortal
+    
 
-def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_virus, y_virus):
+def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, reloj, direccion):
     """Dibuja los elementos en la pantalla."""
+    reloj.tick(60)
     ventana.blit(imagen_fondo, (0, 0))
-    #ventana.fill(beige_clarito)
-    ventana.blit(somvicks, (x_somvicks, y_somvicks))
+    if direccion == "derecha":
+        ventana.blit(somvicks_D, (x_somvicks, y_somvicks))
+    else:
+        ventana.blit(somvicks_I, (x_somvicks, y_somvicks))
     ventana.blit(pildora, (x_pildora, y_pildora))
     ventana.blit(virus, (x_virus, y_virus))
+    ventana.blit(virus_mortal, (x_virus_mortal, y_virus_mortal))
     pygame.display.flip()
 
 
 def mostrar_pantalla_final(ventana, resultado):
     """Muestra la pantalla final según el resultado del juego."""
     if resultado == "ganaste":
-        sonido_ganar.play(imagen_fondo)
+        sonido_ganar.play()
         ventana.fill((0, 0, 0))
         ventana.blit(ganaste_img, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
     elif resultado == "perdiste":
