@@ -9,7 +9,6 @@ beige_clarito = (245, 245, 220) # Color de fondo
 
 # Diccionario con la información del jugador
 estado_jugador = {
-    "nombre": "jugador",
     "vidas": 3,
     "pildoras": 0,
     "virus": 0
@@ -19,28 +18,32 @@ estado_jugador = {
 print(estado_jugador)
 
 # Carga del Somvicks!! <3
-somvicks = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pequeñoSomvicks.png")  # Reemplaza con la ruta de tu imagen
+somvicks = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pequeñoSomvicks.png") 
 # Achicar a Somvicks
 ancho_somvicks, alto_somvicks = 50, 50
-somvicks = pygame.transform.scale(somvicks, (ancho_somvicks, alto_somvicks))  # Redimensiona a 50x50 píxeles
+somvicks = pygame.transform.scale(somvicks, (ancho_somvicks, alto_somvicks))
 
-# Cargar y redimensionar la píldora
+# Estas variables guardan los datos de la pildora
 pildora = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pildora.png")
 ancho_pildora, alto_pildora = 25, 25
 pildora = pygame.transform.scale(pildora, (ancho_pildora, alto_pildora))
 
-# Cargar y redimensionar el virus
+# Estas variables guardan los datos del virus
 virus = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/virus.png")
 ancho_virus, alto_virus = 40, 40
 virus = pygame.transform.scale(virus, (ancho_virus, alto_virus))
 
-# Cargar imagen de "Game Over"
-game_over_img = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/gameover.png")
-game_over_img = pygame.transform.scale(game_over_img, (400, 300))  # Ajustar tamaño
+# Fondo 
+imagen_fondo = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/fondo.png")
+imagen_fondo = pygame.transform.scale(imagen_fondo, medidas_ventana) 
 
-# Cargar imagen de "Ganaste"
+# estas variables guardan la imagen que aparece cuando perdes
+game_over_img = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/gameover.png")
+game_over_img = pygame.transform.scale(game_over_img, (400, 300)) 
+
+# Estas variables pertenece a la imagen que aparece cuanod ganas
 ganaste_img = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/ganaste.png")
-ganaste_img = pygame.transform.scale(ganaste_img, (400, 300))  # Ajustar tamaño
+ganaste_img = pygame.transform.scale(ganaste_img, (400, 300))
 
 
 # Posición inicial del personaje
@@ -54,17 +57,17 @@ velocidad_personaje = 0.5
 x_pildora = random.randint(0, medidas_ventana[0] - ancho_pildora)
 y_pildora = -alto_pildora  # Comienza fuera de la pantalla (borde superior)
 velocidad_pildora = 1
-contador_pildora = 0  # Contador para controlar la caída de la píldora
-caida_cada_n_frames = 2  # Mover la píldora cada 5 cuadros
+contador_pildora = 0  # Contador de la caída de la píldora
+caida_cada_n_vueltas = 2  # Mover la píldora cada 5 cuadros
 
 # Variables del virus
 x_virus = random.randint(0, medidas_ventana[0] - ancho_virus)
 y_virus = -alto_virus
-velocidad_virus = 1 # El virus cae más rápido que la píldora
+velocidad_virus = 1 
 
 resultado = None
 
-# Cargar sonido
+# Estas variables guardan el sonido de cada colision y cuando ganas o perdes
 sonido_pildora = pygame.mixer.Sound("C:/Users/Victoria/Desktop/SomvicksPygame/pildora.wav")
 sonido_virus = pygame.mixer.Sound("C:/Users/Victoria/Desktop/SomvicksPygame/virus1.wav")
 sonido_ganar = pygame.mixer.Sound("C:/Users/Victoria/Desktop/SomvicksPygame/ganar.wav")

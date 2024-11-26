@@ -2,22 +2,23 @@ import pygame
 import random
 from variables import *
 
-def reproducir_musica(musica, volumen=0.4): # Cargar y reproducir música de fondo
+def reproducir_musica(musica, volumen=0.2): # Cargar y reproduce la música de fondo
     pygame.mixer.music.load(musica)
     pygame.mixer.music.set_volume(volumen)  # Ajusta el volumen (0.0 a 1.0)
-    pygame.mixer.music.play(-1)  # Repetir la música indefinidamente
+    pygame.mixer.music.play(-1)  # Esto repite la música indefinidamente
 
 def detectar_colision_pildora(rect_personaje, rect_pildora, estado_jugador, medidas_ventana, sonido_pildora):
     """Maneja la colisión entre Somvicks y la píldora."""
     if rect_personaje.colliderect(rect_pildora):
         sonido_pildora.play()
         estado_jugador["pildoras"] += 1
-        print(f"¡Antídotos recogidos: {estado_jugador['pildoras']}!")
+        print(f"¡Pildoras recogidas: {estado_jugador['pildoras']}!")
         # Reiniciar la posición de la píldora
         x_pildora = random.randint(0, medidas_ventana[0] - rect_pildora.width)
         y_pildora = -rect_pildora.height
         return x_pildora, y_pildora, True
     return rect_pildora.x, rect_pildora.y, False
+
 def detectar_colision_virus(rect_personaje, rect_virus, estado_jugador, medidas_ventana, sonido_virus):
     """Maneja la colisión entre Somvicks y el virus."""
     if rect_personaje.colliderect(rect_virus):
@@ -32,7 +33,7 @@ def detectar_colision_virus(rect_personaje, rect_virus, estado_jugador, medidas_
 
 def mostrar_pantalla_final(ventana, resultado, medidas_ventana, img_ganaste, img_gameover, sonido_ganar, sonido_perder):
     """Muestra la pantalla final según el resultado del juego."""
-    ventana.fill((0, 0, 0))  # Fondo negro
+    ventana.fill((0, 0, 0)) 
     if resultado == "ganaste":
         sonido_ganar.play()
         ventana.blit(img_ganaste, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
@@ -44,30 +45,27 @@ def mostrar_pantalla_final(ventana, resultado, medidas_ventana, img_ganaste, img
 def mostrar_menu(ventana, medidas_ventana, beige_clarito):
     """Muestra el menú principal y gestiona las opciones del usuario."""
     menu_activo = True
-    fuente = pygame.font.Font(None, 40)  # Fuente para el texto
-    ventana.fill(beige_clarito)  # Fondo del menú
+    fuente = pygame.font.Font(None, 40) 
+    ventana.fill(beige_clarito) 
 
     while menu_activo:
-        ventana.fill(beige_clarito)  # Fondo beige
-        # Renderizar texto
+        ventana.fill(beige_clarito) 
         titulo = fuente.render("MENU PRINCIPAL", True, (128, 0, 32))
         opcion1 = fuente.render("1 - Iniciar Juego", True, (128, 0, 32))
         opcion2 = fuente.render("2 - Reglas del Juego", True, (128, 0, 32))
         opcion3 = fuente.render("3 - Salir", True, (128, 0, 32))
 
-        # Posicionar texto en la pantalla
         ventana.blit(titulo, ((medidas_ventana[0] - titulo.get_width()) // 2, 100))
         ventana.blit(opcion1, ((medidas_ventana[0] - opcion1.get_width()) // 2, 200))
         ventana.blit(opcion2, ((medidas_ventana[0] - opcion2.get_width()) // 2, 250))
         ventana.blit(opcion3, ((medidas_ventana[0] - opcion3.get_width()) // 2, 300))
 
-        pygame.display.flip()  # Actualizar pantalla
+        pygame.display.flip() 
 
-        # Manejar eventos
-        for event in pygame.event.get():
+        for event in pygame.event.get(): # Esta parte captura los eventos del menu
             if event.type == pygame.QUIT:
                 pygame.quit()
-                exit()  # Salir del programa
+                exit() 
 
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:  # Opción 1: Iniciar juego
@@ -135,7 +133,7 @@ def mover_personaje(teclas, x_somvicks):
 def actualizar_pildora(contador_pildora, x_pildora, y_pildora):
     """Actualiza la posición de la píldora."""
     contador_pildora += 1
-    if contador_pildora >= caida_cada_n_frames:
+    if contador_pildora >= caida_cada_n_vueltas:
         y_pildora += 1
         contador_pildora = 0
 
@@ -156,7 +154,8 @@ def actualizar_virus(x_virus, y_virus):
 
 def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_virus, y_virus):
     """Dibuja los elementos en la pantalla."""
-    ventana.fill(beige_clarito)
+    ventana.blit(imagen_fondo, (0, 0))
+    #ventana.fill(beige_clarito)
     ventana.blit(somvicks, (x_somvicks, y_somvicks))
     ventana.blit(pildora, (x_pildora, y_pildora))
     ventana.blit(virus, (x_virus, y_virus))
@@ -166,7 +165,7 @@ def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_v
 def mostrar_pantalla_final(ventana, resultado):
     """Muestra la pantalla final según el resultado del juego."""
     if resultado == "ganaste":
-        sonido_ganar.play()
+        sonido_ganar.play(imagen_fondo)
         ventana.fill((0, 0, 0))
         ventana.blit(ganaste_img, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
     elif resultado == "perdiste":

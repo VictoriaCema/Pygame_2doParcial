@@ -1,5 +1,4 @@
 import pygame
-import random
 from variables import *
 from funciones import *
 
@@ -10,22 +9,22 @@ pygame.mixer.init()
 
 reproducir_musica("C:/Users/Victoria/Desktop/SomvicksPygame/musica.mp3")
 
-# Bucle principal (para que la ventana no se cierre de inmediato)
+# Bucle inicial, muestra el menu principal con las reglas del juego
 ejecutando = 1
 while ejecutando == 1:
     opcion = mostrar_menu(ventana, medidas_ventana, beige_clarito)
 
     if opcion == "iniciar":
-        # Inicia el juego (coloca aquí el bucle del juego)
-        # Reiniciar estado del jugador y posiciones
+        
+        # Reiniciar estado del jugador y posiciones por si se elije jugar otra partida 
         estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks = inicializar_estado_juego()
         contador_pildora = 0
         resultado = None
         
-        jugando = 1
+        jugando = 1 # Bucle del juego propiamente dicho
         while jugando == 1:
             for event in pygame.event.get():
-                if event.type == pygame.QUIT:  # Cerrar al hacer clic en la X de la ventana
+                if event.type == pygame.QUIT:
                     jugando = False
                     
             # Mover el Somvicks de izquierda a derecha con las teclas de flechitas del teclado
@@ -59,10 +58,11 @@ while ejecutando == 1:
                     print("¡Game Over!")
                     resultado = "perdiste"
                     jugando = 2
+                    
             
             # Dibujar pantalla
             dibujar_elementos(ventana, x_somvicks, y_somvicks,x_pildora, y_pildora, x_virus, y_virus)
-
+            
         # Pantalla final
         pygame.mixer.music.stop()
         mostrar_pantalla_final(ventana, resultado)
