@@ -35,8 +35,11 @@ ancho_virus, alto_virus = 50, 50
 virus = pygame.transform.scale(virus, (ancho_virus, alto_virus))
 
 #Estas variables guardan el virus mortal
-#virus_mortal = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/virus1.png"), (ancho_virus, alto_virus))
 virus_mortal = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/virus1.png"), (ancho_virus, alto_virus))
+
+#Estas variables guardan la pildora salvadora
+ancho_pildora_salvadora, alto_pildora_salvadora = 50, 50
+pildora_salvadora = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pildora_salvadora.png"), (alto_pildora_salvadora, ancho_pildora_salvadora))
 
 # Fondo 
 imagen_fondo = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/fondo2.png")
@@ -62,8 +65,6 @@ velocidad_personaje = 7
 x_pildora = random.randint(0, medidas_ventana[0] - ancho_pildora)
 y_pildora = -alto_pildora  # Comienza fuera de la pantalla (borde superior)
 velocidad_pildora = 7
-contador_pildora = 0  # Contador de la caída de la píldora
-caida_cada_n_vueltas = 2  # Mover la píldora cada 5 cuadros
 
 # Variables del virus
 x_virus = random.randint(0, medidas_ventana[0] - ancho_virus)
@@ -71,12 +72,14 @@ y_virus = -alto_virus
 velocidad_virus = 10
 
 # Variables del virus mortal 
-# x_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus)
-# y_virus_mortal = -alto_virus
-# velocidad_virus_mortal = 20
 x_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus)
 y_virus_mortal = -alto_virus
 velocidad_virus_mortal = 20
+
+# Variables de la pildora salvadora
+x_pildora_salvadora = random.randint(0, medidas_ventana[0] - 35)
+y_pildora_salvadora = - 35
+velocidad_pildora_salvadora = 10
 
 resultado = None
 

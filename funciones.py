@@ -35,7 +35,7 @@ def detectar_colision_virus_mortal(rect_personaje, rect_virual_mortal, estado_ju
     """Maneja la colisión entre Somvicks y el virus."""
     if rect_personaje.colliderect(rect_virual_mortal):
         sonido_virus.play()
-        estado_jugador["virus"] -= 1
+        estado_jugador["vidas"] -= 1
         print(f"¡Virus mortal tocado, pierdes una vida, vidas restandtes {estado_jugador["vidas"]}! ")
         # Reiniciar la posición del virus
         x_virus_mortal = random.randint(0, medidas_ventana[0] - rect_virual_mortal.width)
@@ -43,7 +43,16 @@ def detectar_colision_virus_mortal(rect_personaje, rect_virual_mortal, estado_ju
         return x_virus_mortal, y_virus_mortal, True
     return rect_virual_mortal.x, rect_virual_mortal.y, False
 
-
+def detectar_colision_pildora_salvadora(rect_personaje, rect_pildora_salvadora, estado_jugador, medidas_ventana, sonido_pildora):
+    '''Muestra la colisión entre Somvicks y la pildora salvadora.'''
+    if rect_personaje.colliderect(rect_pildora_salvadora):
+        sonido_pildora.play()
+        estado_jugador["vidas"] += 1
+        print(f"¡Pildora salvadora tocada, ganaste una vida, vidas acumuladas: {estado_jugador["vidas"]}!")
+        x_pildora_salvadora = random.randint(0, medidas_ventana[0] - rect_pildora_salvadora.width)
+        y_pildora_salvadora = - rect_pildora_salvadora.height
+        return x_pildora_salvadora, y_pildora_salvadora, True
+    return rect_pildora_salvadora.x, rect_pildora_salvadora.y, False
 
 def mostrar_pantalla_final(ventana, resultado, medidas_ventana, img_ganaste, img_gameover, sonido_ganar, sonido_perder):
     """Muestra la pantalla final según el resultado del juego."""
@@ -100,11 +109,12 @@ def mostrar_reglas(ventana, medidas_ventana, beige_clarito, fuente):
     reglas = [
         "REGLAS DEL JUEGO:",
         "1. Mueve a Somvicks con las flechas <- y ->.",
-        "2. Atrapa las píldoras para sumar puntos.",
-        "3. Evita los virus o perderás vidas", 
+        "2. Atrapa las píldoras rosas para sumar puntos.",
+        "3. Consigue 20 píldoras rosas para ganar.", 
         "4. Comienzas con 3 vidas",
-        "5. Pierdes 1 vida cada 3 virus que tocas.",
-        "6. Consigue 20 píldoras para ganar.",
+        "5. Pierdes 1 vida cada 3 virus verdes que tocas.",
+        "6. Pierdes 1 vida por cada virus rojo que tocas.",
+        "7. La pildora amarilla te devuelve 1 vida. ",
         "Presiona ESC para volver al menú principal."
     ]
 
@@ -134,7 +144,8 @@ def inicializar_estado_juego():
     x_somvicks, y_somvicks = (medidas_ventana[0] - ancho_somvicks) // 2, medidas_ventana[1] - alto_somvicks
     #x_virus_mortal, y_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus), - alto_virus
     x_virus_mortal, y_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus), - alto_virus
-    return estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks, x_virus_mortal, y_virus_mortal #x_virus_mortal, y_virus_mortal
+    x_pildora_salvadora, y_pildora_salvadora = random.randint(0, medidas_ventana[0] - 35), - 35
+    return estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora
 
 
 def mover_personaje(teclas, x_somvicks, direccion):
@@ -173,7 +184,15 @@ def actualizar_virus_mortal(x_virus_mortal, y_virus_mortal):
     return x_virus_mortal, y_virus_mortal
     
 
-def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, reloj, direccion):
+def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora):
+    y_pildora_salvadora += velocidad_pildora_salvadora
+    if y_pildora_salvadora > medidas_ventana[1]:
+        x_pildora_salvadora = random.randint(0, medidas_ventana[0] - ancho_pildora_salvadora)
+        y_pildora_salvadora = - alto_pildora_salvadora
+    return x_pildora_salvadora, y_pildora_salvadora
+
+
+def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora, reloj, direccion):
     """Dibuja los elementos en la pantalla."""
     reloj.tick(60)
     ventana.blit(imagen_fondo, (0, 0))
@@ -184,6 +203,7 @@ def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_v
     ventana.blit(pildora, (x_pildora, y_pildora))
     ventana.blit(virus, (x_virus, y_virus))
     ventana.blit(virus_mortal, (x_virus_mortal, y_virus_mortal))
+    ventana.blit(pildora_salvadora, (x_pildora_salvadora, y_pildora_salvadora))
     pygame.display.flip()
 
 

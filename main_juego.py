@@ -24,8 +24,7 @@ while ejecutando == 1:
     if opcion == "iniciar":
         
         # Reiniciar estado del jugador y posiciones por si se elije jugar otra partida 
-        estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks, x_virus_mortal, y_virus_mortal = inicializar_estado_juego() #x_virus_mortal, y_virus_mortal = inicializar_estado_juego()
-        contador_pildora = 0
+        estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora = inicializar_estado_juego() 
         resultado = None
         direccion = "derecha"
         
@@ -40,15 +39,18 @@ while ejecutando == 1:
             teclas = pygame.key.get_pressed()
             x_somvicks, direccion = mover_personaje(teclas, x_somvicks, direccion)
             
-            # Hacer que la pildora caiga, el virus comun y el virus mortal
+            # Hacer que la pildora, el virus comun, el virus mortal y la pildora salvadora caigan
             x_pildora, y_pildora = actualizar_pildora(x_pildora, y_pildora)
             x_virus, y_virus = actualizar_virus(x_virus, y_virus)
             x_virus_mortal, y_virus_mortal = actualizar_virus_mortal(x_virus_mortal, y_virus_mortal)
+            x_pildora_salvadora, y_pildora_salvadora = actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora)
+            
             
             rect_somvicks = pygame.Rect(x_somvicks, y_somvicks, ancho_somvicks, alto_somvicks)
             rect_pildora = pygame.Rect(x_pildora, y_pildora, ancho_pildora, alto_pildora)
             rect_virus = pygame.Rect(x_virus, y_virus, ancho_virus, alto_virus)
             rect_virus_mortal = pygame.Rect(x_virus_mortal, y_virus_mortal, ancho_virus, alto_virus)
+            rect_pildora_salvadora = pygame.Rect(x_pildora_salvadora, y_pildora_salvadora, ancho_pildora_salvadora, alto_pildora_salvadora)
             
             # Colisión con píldora
             x_pildora, y_pildora, ganado = detectar_colision_pildora(rect_somvicks, rect_pildora, estado_jugador, medidas_ventana, sonido_pildora)
@@ -72,9 +74,11 @@ while ejecutando == 1:
                     resultado = "perdiste"
                     jugando = 2
                     
+            # Colision con pildora salvadora 
+            x_pildora_salvadora, y_pildora_salvadora, ganado1 = detectar_colision_pildora_salvadora(rect_somvicks, rect_pildora_salvadora, estado_jugador, medidas_ventana, sonido_pildora)
             
             # Dibujar pantalla                                 
-            dibujar_elementos(ventana, x_somvicks, y_somvicks,x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, reloj, direccion)
+            dibujar_elementos(ventana, x_somvicks, y_somvicks,x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora, reloj, direccion)
             
         # Pantalla final
         pygame.mixer.music.stop()
