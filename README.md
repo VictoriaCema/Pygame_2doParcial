@@ -6,17 +6,16 @@ El proyecto consiste en un juego realizado con la libreria PYGAME.
 ![image](https://github.com/user-attachments/assets/e589ed9b-8636-4696-8ae7-d2ceaf8ce3a8)
 
 
-----------------------------------------------------------INTRODUCCIÓN AL JUEGO 🧟‍♂️💊----------------------------------------------------------
+-------------------------------------------INTRODUCCIÓN AL JUEGO 🧟‍♂️💊-------------------------------------------
 
 Eres Somvicks, el valiente héroe que debe recolectar píldoras para mantenerse a salvo mientras esquivas los temibles virus que caen del cielo.
 
 🧟Tu Misión :
 
 -Recolectar Píldoras: Atrapa tantas píldoras como puedas para acumular puntos. ¡Cada píldora es un antídoto valioso!
-                    ¡Las pildoras amarillas te suman vidas! y las rosas puntos para ganar.
--Esquivar Virus: Mantente alejado de los virus comunes y mortales que intentan infectarte. ¡Tres toques de virus comunes y perderás una vida!, pero cuidado con los
-                virus mortales (rojos) porque te quitan una vida inmediatamente.
-Sobrevivir y Prosperar: Usa tu destreza para moverte rápidamente y mantener a salvo a Somvicks. Cuando hayas recolectado suficientes píldoras, ¡Habrás ganado el juego!
+                    ¡Las pildoras amarillas te suman vidas! y las rosas puntos para ganar. \
+-Esquivar Virus: Mantente alejado de los virus comunes y mortales que intentan infectarte. ¡Tres toques de virus comunes y perderás una vida!, pero cuidado con los virus mortales (rojos) porque te quitan una vida inmediatamente. \
+Sobrevivir y Prosperar: Usa tu destreza para moverte rápidamente y mantener a salvo a Somvicks. Cuando hayas recolectado suficientes píldoras, ¡Habrás ganado el juego! \
 
 🧟Controles:
 
