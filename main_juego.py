@@ -9,11 +9,7 @@ pygame.init()
 pygame.mixer.init()
 
 reloj = pygame.time.Clock()
-<<<<<<< Updated upstream
 #reproducir_musica("C:/Users/Victoria/Desktop/SomvicksPygame/musica.mp3")
-=======
-reproducir_musica("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/assets/audios/musica.mp3")
->>>>>>> Stashed changes
 
 nombre = "Somvicks"
 pygame.display.set_caption(nombre)
