@@ -1,6 +1,6 @@
 import pygame
-from variables import *
-from funciones import *
+from modules.variables import *
+from modules.funciones import *
 
 # Inicializar Pygame
 pygame.init()
