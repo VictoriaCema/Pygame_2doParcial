@@ -1,6 +1,6 @@
 import pygame
 import random
-from variables import *
+from modules.variables import *
 
 def reproducir_musica(musica, volumen=0.2): # Cargar y reproduce la música de fondo
     pygame.mixer.music.load(musica)
@@ -13,6 +13,10 @@ def detectar_colision_pildora(rect_personaje, rect_pildora, estado_jugador, medi
         sonido_pildora.play()
         estado_jugador["pildoras"] += 1
         print(f"¡Pildoras recogidas: {estado_jugador['pildoras']}!")
+
+        if estado_jugador["pildoras"] >9:
+            global velocidad_virus
+            velocidad_virus +=2
         # Reiniciar la posición de la píldora
         x_pildora = random.randint(0, medidas_ventana[0] - rect_pildora.width)
         y_pildora = -rect_pildora.height
@@ -142,6 +146,8 @@ def mostrar_reglas(ventana, medidas_ventana, beige_clarito, fuente):
 
 def inicializar_estado_juego():
     """Inicializa las variables del estado del juego y las posiciones."""
+    global velocidad_virus #Declara que vamos a modificar la variable global
+    velocidad_virus = 1 #Reinicia la velocidad al valor inicial
     estado_jugador = {"pildoras": 0, "virus": 0, "vidas": 3}
     x_pildora, y_pildora = random.randint(0, medidas_ventana[0] - ancho_pildora), -alto_pildora
     x_virus, y_virus = random.randint(0, medidas_ventana[0] - ancho_virus), -alto_virus
@@ -186,13 +192,18 @@ def actualizar_virus_mortal(x_virus_mortal, y_virus_mortal):
         x_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus)
         y_virus_mortal = - alto_virus
     return x_virus_mortal, y_virus_mortal
-    
 
-def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora):
+probabilidad_pildora_salvadora = 0.5  # Ajusta este valor para cambiar la frecuencia
+def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora):
     y_pildora_salvadora += velocidad_pildora_salvadora
     if y_pildora_salvadora > medidas_ventana[1]:
-        x_pildora_salvadora = random.randint(0, medidas_ventana[0] - ancho_pildora_salvadora)
-        y_pildora_salvadora = - alto_pildora_salvadora
+        if random.random() > probabilidad_pildora_salvadora:
+            x_pildora_salvadora = random.randint(0, medidas_ventana[0] - ancho_pildora_salvadora)
+            y_pildora_salvadora = - alto_pildora_salvadora
+            #contador_pildora_salvadora = 0 #Reinicia el contador
+        else:
+            #contador_pildora_salvadora +=1
+            x_pildora_salvadora, y_pildora_salvadora = -100, -100 #La mantiene fuera de la pantalla 
     return x_pildora_salvadora, y_pildora_salvadora
 
 

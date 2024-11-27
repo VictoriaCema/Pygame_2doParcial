@@ -1,6 +1,6 @@
 import pygame
-from variables import *
-from funciones import *
+from modules.variables import *
+from modules.funciones import *
 
 # Inicializar Pygame
 pygame.init()
@@ -13,7 +13,7 @@ reproducir_musica("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doP
 
 nombre = "Somvicks"
 pygame.display.set_caption(nombre)
-icono = pygame.image.load("pequeñoSomvicksD.png")
+icono = pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/assets/imagenes/pequeñoSomvicksD.png")
 pygame.display.set_icon(icono)
 
 # Bucle inicial, muestra el menu principal con las reglas del juego
@@ -43,7 +43,7 @@ while ejecutando == 1:
             x_pildora, y_pildora = actualizar_pildora(x_pildora, y_pildora)
             x_virus, y_virus = actualizar_virus(x_virus, y_virus)
             x_virus_mortal, y_virus_mortal = actualizar_virus_mortal(x_virus_mortal, y_virus_mortal)
-            x_pildora_salvadora, y_pildora_salvadora = actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora)
+            x_pildora_salvadora, y_pildora_salvadora = actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora)
             
             
             rect_somvicks = pygame.Rect(x_somvicks, y_somvicks, ancho_somvicks, alto_somvicks)
