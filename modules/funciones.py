@@ -222,6 +222,19 @@ def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_v
     ventana.blit(pildora_salvadora, (x_pildora_salvadora, y_pildora_salvadora))
     pygame.display.flip()
 
+def actualizar_estado_jugador(estado_jugador):
+    if estado_jugador["virus"] >= 3:
+        estado_jugador["vidas"] -= 1
+        estado_jugador["virus"] = 0
+        print(f"¡Perdiste una vida! Vidas restantes: {estado_jugador["vidas"]}")
+
+
+    if estado_jugador["vidas"] <= 0:
+        print("¡Game Over!")
+        resultado = "perdiste"
+        jugando = 2
+        return resultado, jugando
+    return None, 1 # Devuelve None y un valor por defecto para "jugando" si no se cumple la condición de "Game Over"
 
 def mostrar_pantalla_final(ventana, resultado):
     """Muestra la pantalla final según el resultado del juego."""
