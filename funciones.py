@@ -37,7 +37,8 @@ def detectar_colision_virus_mortal(rect_personaje, rect_virual_mortal, estado_ju
     if rect_personaje.colliderect(rect_virual_mortal):
         sonido_virus.play()
         estado_jugador["vidas"] -= 1
-        print(f"¡Virus mortal tocado, pierdes una vida, vidas restandtes {estado_jugador["vidas"]}! ")
+        #print(f"¡Pildora salvadora tocada, ganaste una vida, vidas acumuladas: {estado_jugador['vidas']}!")
+
         # Reiniciar la posición del virus
         x_virus_mortal = random.randint(0, medidas_ventana[0] - rect_virual_mortal.width)
         y_virus_mortal = - rect_virual_mortal.height
@@ -49,7 +50,7 @@ def detectar_colision_pildora_salvadora(rect_personaje, rect_pildora_salvadora, 
     if rect_personaje.colliderect(rect_pildora_salvadora):
         sonido_pildora.play()
         estado_jugador["vidas"] += 1
-        print(f"¡Pildora salvadora tocada, ganaste una vida, vidas acumuladas: {estado_jugador["vidas"]}!")
+        #print(f"¡Pildora salvadora tocada, ganaste una vida, vidas acumuladas: {estado_jugador["vidas"]}!")
         x_pildora_salvadora = random.randint(0, medidas_ventana[0] - rect_pildora_salvadora.width)
         y_pildora_salvadora = - rect_pildora_salvadora.height
         return x_pildora_salvadora, y_pildora_salvadora, True

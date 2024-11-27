@@ -19,39 +19,39 @@ estado_jugador = {
 print(estado_jugador)
 
 # Carga del Somvicks!! <3
-somvicks = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pequeñoSomvicksD.png") 
+somvicks = pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/pequeñoSomvicksD.png") 
 # Achicar a Somvicks
 ancho_somvicks, alto_somvicks = 100, 100
-somvicks_D = pygame.transform.scale((pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pequeñoSomvicksD.png")), (ancho_somvicks, alto_somvicks))
-somvicks_I = pygame.transform.scale((pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pequeñoSomvicksI.png")), (ancho_somvicks, alto_somvicks)) 
+somvicks_D = pygame.transform.scale((pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/pequeñoSomvicksD.png")), (ancho_somvicks, alto_somvicks))
+somvicks_I = pygame.transform.scale((pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/pequeñoSomvicksI.png")), (ancho_somvicks, alto_somvicks)) 
 
 # Estas variables guardan los datos de la pildora
-pildora = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pildora.png")
+pildora = pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/pildora.png")
 ancho_pildora, alto_pildora = 35, 35
 pildora = pygame.transform.scale(pildora, (ancho_pildora, alto_pildora))
 
 # Estas variables guardan los datos del virus verde
-virus = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/virus.png")
+virus = pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/pildora.png")
 ancho_virus, alto_virus = 50, 50
 virus = pygame.transform.scale(virus, (ancho_virus, alto_virus))
 
 #Estas variables guardan el virus mortal
-virus_mortal = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/virus1.png"), (ancho_virus, alto_virus))
+virus_mortal = pygame.transform.scale(pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/virus1.png"), (ancho_virus, alto_virus))
 
 #Estas variables guardan la pildora salvadora
 ancho_pildora_salvadora, alto_pildora_salvadora = 50, 50
-pildora_salvadora = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/pildora_salvadora.png"), (alto_pildora_salvadora, ancho_pildora_salvadora))
+pildora_salvadora = pygame.transform.scale(pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/pildora_salvadora.png"), (alto_pildora_salvadora, ancho_pildora_salvadora))
 
 # Fondo 
-imagen_fondo = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/fondo2.png")
+imagen_fondo = pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/fondo2.png")
 imagen_fondo = pygame.transform.scale(imagen_fondo, medidas_ventana) 
 
 # estas variables guardan la imagen que aparece cuando perdes
-game_over_img = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/gameover.png")
+game_over_img = pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/gameover.png")
 game_over_img = pygame.transform.scale(game_over_img, (700, 500)) 
 
-# Estas variables pertenece a la imagen que aparece cuanod ganas
-ganaste_img = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/ganaste.png")
+# Estas variables pertenece a la imagen que aparece cuando ganas
+ganaste_img = pygame.image.load("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/ganaste.png")
 ganaste_img = pygame.transform.scale(ganaste_img, (700, 500))
 
 
@@ -85,10 +85,10 @@ velocidad_pildora_salvadora = 10
 resultado = None
 
 # Estas variables guardan el sonido de cada colision y cuando ganas o perdes
-sonido_pildora = pygame.mixer.Sound("C:/Users/Victoria/Desktop/SomvicksPygame/pildora.wav")
-sonido_virus = pygame.mixer.Sound("C:/Users/Victoria/Desktop/SomvicksPygame/virus1.wav")
-sonido_ganar = pygame.mixer.Sound("C:/Users/Victoria/Desktop/SomvicksPygame/ganar.wav")
-sonido_perder = pygame.mixer.Sound("C:/Users/Victoria/Desktop/SomvicksPygame/perder.wav")
+sonido_pildora = pygame.mixer.Sound("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/pildora.wav")
+sonido_virus = pygame.mixer.Sound("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/virus1.wav")
+sonido_ganar = pygame.mixer.Sound("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/ganar.wav")
+sonido_perder = pygame.mixer.Sound("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/perder.wav")
 
 #texto del ranking del jugador
 texto = f"Vidas: {estado_jugador['vidas']}  Pildoras: {estado_jugador['pildoras']}  Virus: {estado_jugador['virus']}"

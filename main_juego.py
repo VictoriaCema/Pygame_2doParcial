@@ -9,7 +9,7 @@ pygame.init()
 pygame.mixer.init()
 
 reloj = pygame.time.Clock()
-#reproducir_musica("C:/Users/Victoria/Desktop/SomvicksPygame/musica.mp3")
+reproducir_musica("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/Pygame_2doParcial/musica.mp3")
 
 nombre = "Somvicks"
 pygame.display.set_caption(nombre)
