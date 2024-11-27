@@ -13,9 +13,9 @@ Eres Somvicks, el valiente héroe que debe recolectar píldoras para mantenerse 
 🧟Tu Misión :
 
 - Recolectar Píldoras: Atrapa tantas píldoras como puedas para acumular puntos. ¡Cada píldora es un antídoto valioso!
-                    ¡Las pildoras amarillas te suman vidas! y las rosas puntos para ganar. \
+                    ¡Las pildoras amarillas te suman vidas! y las rosas puntos para ganar. 
 - Esquivar Virus: Mantente alejado de los virus comunes y mortales que intentan infectarte. ¡Tres toques de virus comunes y perderás una vida!, pero cuidado con los virus mortales (rojos) porque te 
-                  quitan una vida inmediatamente. \
+                  quitan una vida inmediatamente. 
 - Sobrevivir y Prosperar: Usa tu destreza para moverte rápidamente y mantener a salvo a Somvicks. Cuando hayas recolectado suficientes píldoras, ¡Habrás ganado el juego! 
 
 🧟Controles:
