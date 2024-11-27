@@ -9,7 +9,11 @@ pygame.init()
 pygame.mixer.init()
 
 reloj = pygame.time.Clock()
+<<<<<<< Updated upstream
 #reproducir_musica("C:/Users/Victoria/Desktop/SomvicksPygame/musica.mp3")
+=======
+reproducir_musica("C:/Users/byawe/OneDrive/Escritorio/pygame parcial/assets/audios/musica.mp3")
+>>>>>>> Stashed changes
 
 nombre = "Somvicks"
 pygame.display.set_caption(nombre)
@@ -43,7 +47,7 @@ while ejecutando == 1:
             x_pildora, y_pildora = actualizar_pildora(x_pildora, y_pildora)
             x_virus, y_virus = actualizar_virus(x_virus, y_virus)
             x_virus_mortal, y_virus_mortal = actualizar_virus_mortal(x_virus_mortal, y_virus_mortal)
-            x_pildora_salvadora, y_pildora_salvadora = actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora)
+            x_pildora_salvadora, y_pildora_salvadora = actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora, contador_pildora_salvadora)
             
             
             rect_somvicks = pygame.Rect(x_somvicks, y_somvicks, ancho_somvicks, alto_somvicks)
