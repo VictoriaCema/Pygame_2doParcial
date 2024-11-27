@@ -1,6 +1,6 @@
 import pygame
 import random
-from variables import *
+from modules.variables import *
 
 def reproducir_musica(musica, volumen=0.2): # Cargar y reproduce la música de fondo
     pygame.mixer.music.load(musica)
@@ -193,17 +193,16 @@ def actualizar_virus_mortal(x_virus_mortal, y_virus_mortal):
         y_virus_mortal = - alto_virus
     return x_virus_mortal, y_virus_mortal
 
-contador_pildora_salvadora = 0
-probabilidad_pildora_salvadora = 0.1  # Ajusta este valor para cambiar la frecuencia
-def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora, contador_pildora_salvadora):
+probabilidad_pildora_salvadora = 0.5  # Ajusta este valor para cambiar la frecuencia
+def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora):
     y_pildora_salvadora += velocidad_pildora_salvadora
     if y_pildora_salvadora > medidas_ventana[1]:
-        if random.random() < probabilidad_pildora_salvadora:
+        if random.random() > probabilidad_pildora_salvadora:
             x_pildora_salvadora = random.randint(0, medidas_ventana[0] - ancho_pildora_salvadora)
             y_pildora_salvadora = - alto_pildora_salvadora
-            contador_pildora_salvadora = 0 #Reinicia el contador
+            #contador_pildora_salvadora = 0 #Reinicia el contador
         else:
-            contador_pildora_salvadora +=1
+            #contador_pildora_salvadora +=1
             x_pildora_salvadora, y_pildora_salvadora = -100, -100 #La mantiene fuera de la pantalla 
     return x_pildora_salvadora, y_pildora_salvadora
 
