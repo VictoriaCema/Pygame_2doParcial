@@ -1,4 +1,7 @@
-El juego Somvicks nace de un grupo de estudiantes de programacion I, obligados a hacer este README.md por nuestro querido profe Enzo (te queremos ❤️), no sabemos muy bien que poner pero hacemos nuestro mejor intento 😎👌.
+Hola! 
+Somos Victoria Vallarino, Patricio Leiva y Victoria Ceretti, estudiantes de programacion de la UTN de Avellaneda. 
+
+Fuimos obligados a hacer este README.md por nuestro querido profe Enzo (te queremos ❤️), no sabemos muy bien que poner pero hacemos nuestro mejor intento 😎👌.
 
 El nombre "Somvicks" viene de la unión de los tres apodos de los integrantes del grupo y por su parecido con la palabra "Zombies" decidimos hacer el proyecto con esa temática.
 El proyecto consiste en un juego realizado con la libreria PYGAME.
