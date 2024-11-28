@@ -13,7 +13,7 @@ estado_jugador = {
     "vidas": 3,
     "pildoras": 0,
     "virus": 0,
-}
+}         
 
 # Mostrar el estado inicial del jugador
 print(estado_jugador)
@@ -41,6 +41,7 @@ virus_mortal = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Deskt
 #Estas variables guardan la pildora salvadora
 ancho_pildora_salvadora, alto_pildora_salvadora = 50, 50
 pildora_salvadora = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/assets/imagenes/pildora_salvadora.png"), (alto_pildora_salvadora, ancho_pildora_salvadora))
+probabilidad_pildora_salvadora = 0.5  # Ajusta este valor para cambiar la frecuencia
 
 # Fondo 
 imagen_fondo = pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/assets/imagenes/fondo2.png")
@@ -78,8 +79,8 @@ y_virus_mortal = -alto_virus
 velocidad_virus_mortal = 12
 
 # Variables de la pildora salvadora
-x_pildora_salvadora = random.randint(0, medidas_ventana[0] - 35)
-y_pildora_salvadora = - 35
+x_pildora_salvadora = random.randint(0, medidas_ventana[0] - ancho_pildora_salvadora)
+y_pildora_salvadora = - alto_pildora_salvadora
 velocidad_pildora_salvadora = 10
 
 resultado = None

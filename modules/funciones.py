@@ -3,7 +3,7 @@ import random
 from modules.variables import *
 
 def reproducir_musica(musica, volumen=0.2): # Cargar y reproduce la música de fondo
-    pygame.mixer.music.load(musica)
+    pygame.mixer.music.load(musica) # Esta funcion carga la musica
     pygame.mixer.music.set_volume(volumen)  # Ajusta el volumen (0.0 a 1.0)
     pygame.mixer.music.play(-1)  # Esto repite la música indefinidamente
 
@@ -30,6 +30,7 @@ def detectar_colision_virus(rect_personaje, rect_virus, estado_jugador, medidas_
         sonido_virus.play()
         estado_jugador["virus"] += 1
         print(f"¡Virus tocados: {estado_jugador['virus']}!")
+
         # Reiniciar la posición del virus
         x_virus = random.randint(0, medidas_ventana[0] - rect_virus.width)
         y_virus = -rect_virus.height
@@ -41,8 +42,7 @@ def detectar_colision_virus_mortal(rect_personaje, rect_virual_mortal, estado_ju
     if rect_personaje.colliderect(rect_virual_mortal):
         sonido_virus.play()
         estado_jugador["vidas"] -= 1
-        #print(f"¡Pildora salvadora tocada, ganaste una vida, vidas acumuladas: {estado_jugador['vidas']}!")
-
+        print(f"¡Virus mortal tocado, perdiste una vida, vidas restantes: {estado_jugador['vidas']}!")
         # Reiniciar la posición del virus
         x_virus_mortal = random.randint(0, medidas_ventana[0] - rect_virual_mortal.width)
         y_virus_mortal = - rect_virual_mortal.height
@@ -157,7 +157,6 @@ def inicializar_estado_juego():
     x_pildora_salvadora, y_pildora_salvadora = random.randint(0, medidas_ventana[0] - 35), - 35
     return estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora
 
-
 def mover_personaje(teclas, x_somvicks, direccion):
     """Controla el movimiento del personaje según las teclas presionadas."""
     if teclas[pygame.K_LEFT] and x_somvicks > 0:
@@ -168,7 +167,6 @@ def mover_personaje(teclas, x_somvicks, direccion):
         direccion = "derecha"
     return x_somvicks, direccion
 
-
 def actualizar_pildora(x_pildora, y_pildora):
     """Actualiza la posición de la píldora."""
     y_pildora += velocidad_pildora
@@ -176,7 +174,6 @@ def actualizar_pildora(x_pildora, y_pildora):
         x_pildora = random.randint(0, medidas_ventana[0] - ancho_pildora)
         y_pildora = -alto_pildora
     return x_pildora, y_pildora
-
 
 def actualizar_virus(x_virus, y_virus):
     """Actualiza la posición del virus."""
@@ -193,7 +190,6 @@ def actualizar_virus_mortal(x_virus_mortal, y_virus_mortal):
         y_virus_mortal = - alto_virus
     return x_virus_mortal, y_virus_mortal
 
-probabilidad_pildora_salvadora = 0.5  # Ajusta este valor para cambiar la frecuencia
 def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora):
     y_pildora_salvadora += velocidad_pildora_salvadora
     if y_pildora_salvadora > medidas_ventana[1]:
@@ -205,7 +201,6 @@ def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, proba
             #contador_pildora_salvadora +=1
             x_pildora_salvadora, y_pildora_salvadora = -100, -100 #La mantiene fuera de la pantalla 
     return x_pildora_salvadora, y_pildora_salvadora
-
 
 def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora, reloj, direccion):
     """Dibuja los elementos en la pantalla."""
@@ -222,19 +217,25 @@ def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_v
     ventana.blit(pildora_salvadora, (x_pildora_salvadora, y_pildora_salvadora))
     pygame.display.flip()
 
-def actualizar_estado_jugador(estado_jugador):
+def actualizar_estado_virus(estado_jugador):
     if estado_jugador["virus"] >= 3:
         estado_jugador["vidas"] -= 1
         estado_jugador["virus"] = 0
-        print(f"¡Perdiste una vida! Vidas restantes: {estado_jugador["vidas"]}")
+        print(f"Tocaste 3 virus comunes. ¡Perdiste una vida! Vidas restantes: {estado_jugador["vidas"]}")
 
-
+def chequear_ganar_perder(estado_jugador):
     if estado_jugador["vidas"] <= 0:
         print("¡Game Over!")
         resultado = "perdiste"
         jugando = 2
         return resultado, jugando
-    return None, 1 # Devuelve None y un valor por defecto para "jugando" si no se cumple la condición de "Game Over"
+    
+    if estado_jugador["pildoras"] >= 20:
+        resultado = "ganaste"
+        jugando = 2
+        return resultado, jugando
+    
+    return None, 1
 
 def mostrar_pantalla_final(ventana, resultado):
     """Muestra la pantalla final según el resultado del juego."""

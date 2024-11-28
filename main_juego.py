@@ -8,7 +8,7 @@ pygame.init()
 # Inicializar el mezclador de audio
 pygame.mixer.init()
 
-reloj = pygame.time.Clock()
+reloj = pygame.time.Clock() # Limita los fps del juego
 reproducir_musica("C:/Users/Victoria/Desktop/SomvicksPygame/assets/audios/musica.mp3")
 
 nombre = "Somvicks"
@@ -33,7 +33,8 @@ while ejecutando == 1:
             
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    jugando = False
+                    jugando = 2
+                    quit()
                     
             # Mover el Somvicks de izquierda a derecha con las teclas de flechitas del teclado
             teclas = pygame.key.get_pressed()
@@ -45,7 +46,7 @@ while ejecutando == 1:
             x_virus_mortal, y_virus_mortal = actualizar_virus_mortal(x_virus_mortal, y_virus_mortal)
             x_pildora_salvadora, y_pildora_salvadora = actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora)
             
-            
+            # Rectangulos de cada objeto colisionable 
             rect_somvicks = pygame.Rect(x_somvicks, y_somvicks, ancho_somvicks, alto_somvicks)
             rect_pildora = pygame.Rect(x_pildora, y_pildora, ancho_pildora, alto_pildora)
             rect_virus = pygame.Rect(x_virus, y_virus, ancho_virus, alto_virus)
@@ -55,21 +56,19 @@ while ejecutando == 1:
             # Colisión con píldora
             x_pildora, y_pildora, ganado = detectar_colision_pildora(rect_somvicks, rect_pildora, estado_jugador, medidas_ventana, sonido_pildora)
 
-            if ganado and estado_jugador["pildoras"] >= 20:
-                    resultado = "ganaste"
-                    jugando = 2
-
             # Colisión con virus
             x_virus, y_virus, colision = detectar_colision_virus(rect_somvicks, rect_virus, estado_jugador, medidas_ventana, sonido_virus)
             
             # Colisión con virus mortal 
             x_virus_mortal, y_virus_mortal, colision = detectar_colision_virus_mortal(rect_somvicks, rect_virus_mortal, estado_jugador, medidas_ventana, sonido_virus)
             
-
-            resultado, jugando = actualizar_estado_jugador(estado_jugador)
-
             # Colision con pildora salvadora 
             x_pildora_salvadora, y_pildora_salvadora, ganado1 = detectar_colision_pildora_salvadora(rect_somvicks, rect_pildora_salvadora, estado_jugador, medidas_ventana, sonido_pildora)
+            
+            #actualizar_estado_jugador(estado_jugador)
+            resultado, jugando = chequear_ganar_perder(estado_jugador)
+            
+            actualizar_estado_virus(estado_jugador)
             
             # Dibujar pantalla                                 
             dibujar_elementos(ventana, x_somvicks, y_somvicks,x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora, reloj, direccion)
