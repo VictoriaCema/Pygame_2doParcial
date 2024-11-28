@@ -7,70 +7,6 @@ def reproducir_musica(musica, volumen=0.2): # Cargar y reproduce la música de f
     pygame.mixer.music.set_volume(volumen)  # Ajusta el volumen (0.0 a 1.0)
     pygame.mixer.music.play(-1)  # Esto repite la música indefinidamente
 
-def detectar_colision_pildora(rect_personaje, rect_pildora, estado_jugador, medidas_ventana, sonido_pildora):
-    """Maneja la colisión entre Somvicks y la píldora."""
-    if rect_personaje.colliderect(rect_pildora):
-        sonido_pildora.play()
-        estado_jugador["pildoras"] += 1
-        print(f"¡Pildoras recogidas: {estado_jugador['pildoras']}!")
-
-        if estado_jugador["pildoras"] >9:
-            global velocidad_virus
-            velocidad_virus +=2
-        # Reiniciar la posición de la píldora
-        x_pildora = random.randint(0, medidas_ventana[0] - rect_pildora.width)
-        y_pildora = -rect_pildora.height
-        return x_pildora, y_pildora, True
-        
-    return rect_pildora.x, rect_pildora.y, False
-
-def detectar_colision_virus(rect_personaje, rect_virus, estado_jugador, medidas_ventana, sonido_virus):
-    """Maneja la colisión entre Somvicks y el virus."""
-    if rect_personaje.colliderect(rect_virus):
-        sonido_virus.play()
-        estado_jugador["virus"] += 1
-        print(f"¡Virus tocados: {estado_jugador['virus']}!")
-
-        # Reiniciar la posición del virus
-        x_virus = random.randint(0, medidas_ventana[0] - rect_virus.width)
-        y_virus = -rect_virus.height
-        return x_virus, y_virus, True
-    return rect_virus.x, rect_virus.y, False
-
-def detectar_colision_virus_mortal(rect_personaje, rect_virual_mortal, estado_jugador, medidas_ventana, sonido_virus):
-    """Maneja la colisión entre Somvicks y el virus."""
-    if rect_personaje.colliderect(rect_virual_mortal):
-        sonido_virus.play()
-        estado_jugador["vidas"] -= 1
-        print(f"¡Virus mortal tocado, perdiste una vida, vidas restantes: {estado_jugador['vidas']}!")
-        # Reiniciar la posición del virus
-        x_virus_mortal = random.randint(0, medidas_ventana[0] - rect_virual_mortal.width)
-        y_virus_mortal = - rect_virual_mortal.height
-        return x_virus_mortal, y_virus_mortal, True
-    return rect_virual_mortal.x, rect_virual_mortal.y, False
-
-def detectar_colision_pildora_salvadora(rect_personaje, rect_pildora_salvadora, estado_jugador, medidas_ventana, sonido_pildora):
-    '''Muestra la colisión entre Somvicks y la pildora salvadora.'''
-    if rect_personaje.colliderect(rect_pildora_salvadora):
-        sonido_pildora.play()
-        estado_jugador["vidas"] += 1
-        #print(f"¡Pildora salvadora tocada, ganaste una vida, vidas acumuladas: {estado_jugador["vidas"]}!")
-        x_pildora_salvadora = random.randint(0, medidas_ventana[0] - rect_pildora_salvadora.width)
-        y_pildora_salvadora = - rect_pildora_salvadora.height
-        return x_pildora_salvadora, y_pildora_salvadora, True
-    return rect_pildora_salvadora.x, rect_pildora_salvadora.y, False
-
-def mostrar_pantalla_final(ventana, resultado, medidas_ventana, img_ganaste, img_gameover, sonido_ganar, sonido_perder):
-    """Muestra la pantalla final según el resultado del juego."""
-    ventana.fill((0, 0, 0)) 
-    if resultado == "ganaste":
-        sonido_ganar.play()
-        ventana.blit(img_ganaste, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
-    elif resultado == "perdiste":
-        sonido_perder.play()
-        ventana.blit(img_gameover, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
-    pygame.display.flip()
-
 def mostrar_menu(ventana, medidas_ventana, beige_clarito):
     """Muestra el menú principal y gestiona las opciones del usuario."""
     menu_activo = True
@@ -147,12 +83,11 @@ def mostrar_reglas(ventana, medidas_ventana, beige_clarito, fuente):
 def inicializar_estado_juego():
     """Inicializa las variables del estado del juego y las posiciones."""
     global velocidad_virus #Declara que vamos a modificar la variable global
-    velocidad_virus = 1 #Reinicia la velocidad al valor inicial
+    velocidad_virus = 5 #Reinicia la velocidad al valor inicial
     estado_jugador = {"pildoras": 0, "virus": 0, "vidas": 3}
     x_pildora, y_pildora = random.randint(0, medidas_ventana[0] - ancho_pildora), -alto_pildora
     x_virus, y_virus = random.randint(0, medidas_ventana[0] - ancho_virus), -alto_virus
     x_somvicks, y_somvicks = (medidas_ventana[0] - ancho_somvicks) // 2, medidas_ventana[1] - alto_somvicks
-    #x_virus_mortal, y_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus), - alto_virus
     x_virus_mortal, y_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus), - alto_virus
     x_pildora_salvadora, y_pildora_salvadora = random.randint(0, medidas_ventana[0] - 35), - 35
     return estado_jugador, x_pildora, y_pildora, x_virus, y_virus, x_somvicks, y_somvicks, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora
@@ -167,28 +102,18 @@ def mover_personaje(teclas, x_somvicks, direccion):
         direccion = "derecha"
     return x_somvicks, direccion
 
-def actualizar_pildora(x_pildora, y_pildora):
-    """Actualiza la posición de la píldora."""
-    y_pildora += velocidad_pildora
-    if y_pildora > medidas_ventana[1]:
-        x_pildora = random.randint(0, medidas_ventana[0] - ancho_pildora)
-        y_pildora = -alto_pildora
-    return x_pildora, y_pildora
+def actualizar_objeto(objeto, x_objeto, y_objeto, velocidad_objeto, ancho_objeto, alto_objeto):
+    # Actualiza los objetos 
+    y_objeto += velocidad_objeto
+    if y_objeto > medidas_ventana[1]:
+        x_objeto = random.randint(0, medidas_ventana[0] - ancho_objeto)
+        y_objeto = - alto_objeto
+        return x_objeto, y_objeto
 
-def actualizar_virus(x_virus, y_virus):
-    """Actualiza la posición del virus."""
-    y_virus += velocidad_virus
-    if y_virus > medidas_ventana[1]:
-        x_virus = random.randint(0, medidas_ventana[0] - ancho_virus)
-        y_virus = -alto_virus
-    return x_virus, y_virus
-
-def actualizar_virus_mortal(x_virus_mortal, y_virus_mortal):
-    y_virus_mortal += velocidad_virus_mortal
-    if y_virus_mortal > medidas_ventana[1]:
-        x_virus_mortal = random.randint(0, medidas_ventana[0] - ancho_virus)
-        y_virus_mortal = - alto_virus
-    return x_virus_mortal, y_virus_mortal
+def aumentar_velocidad_virus(velocidad_virus):
+    if estado_jugador["pildoras"] > 9:
+        velocidad_virus = 15
+    return velocidad_virus
 
 def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora):
     y_pildora_salvadora += velocidad_pildora_salvadora
@@ -196,11 +121,64 @@ def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, proba
         if random.random() > probabilidad_pildora_salvadora:
             x_pildora_salvadora = random.randint(0, medidas_ventana[0] - ancho_pildora_salvadora)
             y_pildora_salvadora = - alto_pildora_salvadora
-            #contador_pildora_salvadora = 0 #Reinicia el contador
         else:
-            #contador_pildora_salvadora +=1
             x_pildora_salvadora, y_pildora_salvadora = -100, -100 #La mantiene fuera de la pantalla 
     return x_pildora_salvadora, y_pildora_salvadora
+
+def detectar_colision(objeto, rect_personaje, rect_objeto, estado_jugador, medidas_ventana):
+    match objeto:
+        #Maneja la colisión entre Somvicks y la píldora.
+        case "pildora":
+            if rect_personaje.colliderect(rect_objeto):
+                sonido_pildora.play()
+                estado_jugador["pildoras"] += 1
+                print(f"¡Pildoras recogidas: {estado_jugador['pildoras']}!")
+                # Reiniciar la posición de la píldora
+                x_pildora = random.randint(0, medidas_ventana[0] - rect_objeto.width)
+                y_pildora = -rect_objeto.height
+                return x_pildora, y_pildora, True           
+        case "virus":
+            '''Muestra la colisión entre Somvicks y el virus.'''
+            if rect_personaje.colliderect(rect_objeto):
+                sonido_virus.play()
+                estado_jugador["virus"] += 1
+                print(f"¡Virus tocados: {estado_jugador['virus']}!")
+                # Reiniciar la posición del virus
+                x_virus = random.randint(0, medidas_ventana[0] - rect_objeto.width)
+                y_virus = -rect_objeto.height
+                return x_virus, y_virus, True
+        case "virus_mortal":
+        #Maneja la colisión entre Somvicks y el virus."""
+            if rect_personaje.colliderect(rect_objeto):
+                sonido_virus.play()
+                estado_jugador["vidas"] -= 1
+                print(f"¡Virus mortal tocado, perdiste una vida, vidas restantes: {estado_jugador['vidas']}!")
+                # Reiniciar la posición del virus
+                x_virus_mortal = random.randint(0, medidas_ventana[0] - rect_objeto.width)
+                y_virus_mortal = - rect_objeto.height
+                return x_virus_mortal, y_virus_mortal, True       
+        case "pildora_salvadora":
+        #Muestra la colisión entre Somvicks y la pildora salvadora.'''
+            if rect_personaje.colliderect(rect_objeto):
+                sonido_pildora.play()
+                estado_jugador["vidas"] += 1
+                print(f"¡Pildora salvadora tocada, ganaste una vida, vidas acumuladas: {estado_jugador["vidas"]}!")
+                # Reiniciar la posición de la pildora salvadora
+                x_pildora_salvadora = random.randint(0, medidas_ventana[0] - rect_objeto.width)
+                y_pildora_salvadora = - rect_objeto.height
+                return x_pildora_salvadora, y_pildora_salvadora, True       
+    return rect_objeto.x, rect_objeto.y, False
+
+def mostrar_pantalla_final(ventana, resultado, medidas_ventana, img_ganaste, img_gameover, sonido_ganar, sonido_perder):
+    """Muestra la pantalla final según el resultado del juego."""
+    ventana.fill((0, 0, 0)) 
+    if resultado == "ganaste":
+        sonido_ganar.play()
+        ventana.blit(img_ganaste, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
+    elif resultado == "perdiste":
+        sonido_perder.play()
+        ventana.blit(img_gameover, ((medidas_ventana[0] - 400) // 2, (medidas_ventana[1] - 300) // 2))
+    pygame.display.flip()
 
 def dibujar_elementos(ventana, x_somvicks, y_somvicks, x_pildora, y_pildora, x_virus, y_virus, x_virus_mortal, y_virus_mortal, x_pildora_salvadora, y_pildora_salvadora, reloj, direccion):
     """Dibuja los elementos en la pantalla."""
