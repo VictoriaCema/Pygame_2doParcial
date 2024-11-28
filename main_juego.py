@@ -1,7 +1,6 @@
 import pygame
 from modules.variables import *
 from modules.funciones import *
-from modules.tester import *
 # Inicializar Pygame
 pygame.init()
 
@@ -39,13 +38,13 @@ while ejecutando == 1:
             x_somvicks, direccion = mover_personaje(teclas, x_somvicks, direccion)
             
             # Hacer que los objetos caigan
-            x_pildora, y_pildora = actualizar_objeto("pildora", x_pildora, y_pildora, velocidad_pildora, ancho_pildora, alto_pildora)
+            x_pildora, y_pildora = actualizar_objeto(x_pildora, y_pildora, velocidad_pildora, ancho_pildora, alto_pildora)
             
             velocidad_virus = aumentar_velocidad_virus(velocidad_virus)
             
-            x_virus, y_virus = actualizar_objeto("virus", x_virus, y_virus, velocidad_virus, ancho_virus, alto_virus)
+            x_virus, y_virus = actualizar_objeto(x_virus, y_virus, velocidad_virus, ancho_virus, alto_virus)
             
-            x_virus_mortal, y_virus_mortal = actualizar_objeto("virus_mortal",x_virus_mortal, y_virus_mortal, velocidad_virus_mortal, ancho_virus, alto_virus)      
+            x_virus_mortal, y_virus_mortal = actualizar_objeto(x_virus_mortal, y_virus_mortal, velocidad_virus_mortal, ancho_virus, alto_virus)      
             
             x_pildora_salvadora, y_pildora_salvadora = actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, probabilidad_pildora_salvadora)
             
@@ -78,7 +77,6 @@ while ejecutando == 1:
             
             ranking(ventana, estado_jugador)
             
-        
         # Pantalla final
         pygame.mixer.music.stop()
         mostrar_pantalla_final(ventana, resultado)

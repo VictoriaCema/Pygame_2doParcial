@@ -102,7 +102,7 @@ def mover_personaje(teclas, x_somvicks, direccion):
         direccion = "derecha"
     return x_somvicks, direccion
 
-def actualizar_objeto(objeto, x_objeto, y_objeto, velocidad_objeto, ancho_objeto, alto_objeto):
+def actualizar_objeto(x_objeto, y_objeto, velocidad_objeto, ancho_objeto, alto_objeto):
     # Actualiza los objetos 
     y_objeto += velocidad_objeto
     if y_objeto > medidas_ventana[1]:
@@ -127,8 +127,8 @@ def actualizar_pildora_salvadora(x_pildora_salvadora, y_pildora_salvadora, proba
 
 def detectar_colision(objeto, rect_personaje, rect_objeto, estado_jugador, medidas_ventana):
     match objeto:
-        #Maneja la colisión entre Somvicks y la píldora.
         case "pildora":
+        #Maneja la colisión entre Somvicks y la píldora.
             if rect_personaje.colliderect(rect_objeto):
                 sonido_pildora.play()
                 estado_jugador["pildoras"] += 1
@@ -138,7 +138,7 @@ def detectar_colision(objeto, rect_personaje, rect_objeto, estado_jugador, medid
                 y_pildora = -rect_objeto.height
                 return x_pildora, y_pildora, True           
         case "virus":
-            '''Muestra la colisión entre Somvicks y el virus.'''
+            #Muestra la colisión entre Somvicks y el virus.
             if rect_personaje.colliderect(rect_objeto):
                 sonido_virus.play()
                 estado_jugador["virus"] += 1
