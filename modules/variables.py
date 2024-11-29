@@ -40,7 +40,7 @@ virus_mortal = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Deskt
 #Estas variables guardan la pildora salvadora
 ancho_pildora_salvadora, alto_pildora_salvadora = 50, 50
 pildora_salvadora = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/assets/imagenes/pildora_salvadora.png"), (alto_pildora_salvadora, ancho_pildora_salvadora))
-probabilidad_pildora_salvadora = 0.1 # Ajusta este valor para cambiar la frecuencia
+probabilidad_pildora_salvadora = 0.6 # Ajusta este valor para cambiar la frecuencia
 
 # Fondo 
 imagen_fondo = pygame.transform.scale(pygame.image.load("C:/Users/Victoria/Desktop/SomvicksPygame/assets/imagenes/fondo2.png"), medidas_ventana) 

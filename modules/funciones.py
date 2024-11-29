@@ -108,9 +108,9 @@ def actualizar_objeto(x_objeto, y_objeto, velocidad_objeto, ancho_objeto, alto_o
     if y_objeto > medidas_ventana[1]:
         x_objeto = random.randint(0, medidas_ventana[0] - ancho_objeto)
         y_objeto = - alto_objeto
-        return x_objeto, y_objeto
+    return x_objeto, y_objeto
 
-def aumentar_velocidad_virus(velocidad_virus):
+def aumentar_velocidad_virus(velocidad_virus, estado_jugador):
     if estado_jugador["pildoras"] > 9:
         velocidad_virus = 15
     return velocidad_virus

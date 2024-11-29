@@ -40,7 +40,7 @@ while ejecutando == 1:
             # Hacer que los objetos caigan
             x_pildora, y_pildora = actualizar_objeto(x_pildora, y_pildora, velocidad_pildora, ancho_pildora, alto_pildora)
             
-            velocidad_virus = aumentar_velocidad_virus(velocidad_virus)
+            velocidad_virus = aumentar_velocidad_virus(velocidad_virus, estado_jugador)
             
             x_virus, y_virus = actualizar_objeto(x_virus, y_virus, velocidad_virus, ancho_virus, alto_virus)
             
